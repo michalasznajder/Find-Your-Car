@@ -1,0 +1,39 @@
+ CREATE TABLE mark (
+    name varchar NOT NULL UNIQUE,
+    PRIMARY KEY(name)
+);
+CREATE TABLE model (
+    mark_name varchar REFERENCES mark(name),
+    name varchar NOT NULL,
+    PRIMARY KEY (mark_name, name)
+);
+CREATE TABLE engine_type(
+    name varchar NOT NULL,
+    PRIMARY KEY (name)
+);
+CREATE TABLE engine (
+    type varchar NOT NULL ,
+    number_of_cylinders integer NOT NULL ,
+    FOREIGN KEY (type) REFERENCES engine_type(name),
+    PRIMARY KEY (type, number_of_cylinders),
+    CHECK ( number_of_cylinders <= 16 )
+);
+CREATE TABLE car
+(
+    id SERIAL,
+    mark varchar NOT NULL ,
+    model varchar NOT NULL ,
+    year_of_production integer NOT NULL ,
+    engine_type varchar NOT NULL,
+    number_of_cylinders integer NOT NULL ,
+    used bool NOT NULL,
+    horsepower integer NOT NULL,
+    mileage integer NOT NULL ,
+    price integer NOT NULL ,
+    description varchar NOT NULL,
+    url varchar NOT NULL ,
+    PRIMARY KEY (id),
+    FOREIGN KEY (mark, model) REFERENCES  model(mark_name, name),
+    FOREIGN KEY (engine_type, number_of_cylinders) REFERENCES engine(type, number_of_cylinders)
+
+);
