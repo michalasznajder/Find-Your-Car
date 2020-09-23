@@ -1,0 +1,288 @@
+<div class="top">
+  <div class="titles">
+    <h1>Sprzedaj swój samochód.</h1>
+    <h5>Tylko jeden formularz do wypełnienia.</h5>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="announcements-container">
+    <div *ngIf="successfull" class="alert alert-success" role="alert">
+      Dodałeś ofertę.
+    </div>
+    <div class="form-container font-grey" novalidate>
+      <form [formGroup]="addCarForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+        <!-- Mark -->
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="selectMark">Marka pojazdu:</label>
+              <select
+                [class.is-valid]="addCarForm.get('mark').valid && addCarForm.get('mark').touched"
+                [class.is-invalid]="addCarForm.get('mark').invalid && addCarForm.get('mark').touched"
+                #selectedMark
+                formControlName="mark"
+                class="custom-select form-control"
+                id="selectMark"
+              >
+                <option value="" selected></option>
+                <option *ngFor="let mark of marks">{{ mark.name }}</option>
+              </select>
+              <div class="invalid-feedback">
+                Wybierz markę
+              </div>
+            </div>
+          </div>
+
+          <!-- Model -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="selectModel">Model pojazdu:</label>
+              <select
+                [class.is-valid]="addCarForm.get('model').valid && addCarForm.get('model').touched"
+                [class.is-invalid]="addCarForm.get('model').invalid && addCarForm.get('model').touched"
+                formControlName="model"
+                class="custom-select form-control"
+                id="selectModel"
+              >
+                <option value="" selected></option>
+                <ng-container *ngFor="let model of models">
+                  <option *ngIf="selectedMark.value == model.mark.name" [value]="model.id">{{ model.name }}</option>
+                </ng-container>
+              </select>
+              <div class="invalid-feedback">
+                Wybierz model
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year -->
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="selectYear">Rok produkcji:</label>
+              <select
+                [class.is-valid]="
+                  addCarForm.get('yearOfProduction').valid && addCarForm.get('yearOfProduction').touched
+                "
+                [class.is-invalid]="
+                  addCarForm.get('yearOfProduction').invalid && addCarForm.get('yearOfProduction').touched
+                "
+                formControlName="yearOfProduction"
+                class="custom-select form-control"
+                id="selectYear"
+              >
+                <option value="" selected></option>
+                <option *ngFor="let year of years">{{ year }}</option>
+              </select>
+              <div class="invalid-feedback">
+                Wybierz rok produkcji
+              </div>
+            </div>
+          </div>
+
+          <!-- Fuel -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="selectFuel">Rodzaj paliwa:</label>
+              <select
+                [class.is-valid]="addCarForm.get('fuel').valid && addCarForm.get('fuel').touched"
+                [class.is-invalid]="addCarForm.get('fuel').invalid && addCarForm.get('fuel').touched"
+                formControlName="fuel"
+                class="custom-select form-control"
+                id="selectFuel"
+              >
+                <option value="" selected></option>
+                <option *ngFor="let fuel of fuels">{{ fuel }}</option>
+              </select>
+              <div class="invalid-feedback">
+                Wybierz rodzaj paliwa
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horsepower -->
+        <div class="form-row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputHorsepower">Moc silnika:</label>
+              <input
+                [class.is-valid]="addCarForm.get('horsepower').valid && addCarForm.get('horsepower').touched"
+                [class.is-invalid]="addCarForm.get('horsepower').invalid && addCarForm.get('horsepower').touched"
+                formControlName="horsepower"
+                type="number"
+                class="form-control"
+                id="inputHorsepower"
+              />
+              <div class="invalid-feedback">
+                <ng-container *ngIf="addCarForm.get('horsepower').errors?.required">
+                  Podaj moc silnika
+                </ng-container>
+                <ng-container *ngIf="addCarForm.get('horsepower').errors?.min">
+                  Podaj prawidłową wartość mocy silnika
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mileage -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputMileage">Przebieg:</label>
+              <input
+                [class.is-valid]="addCarForm.get('mileage').valid && addCarForm.get('mileage').touched"
+                [class.is-invalid]="addCarForm.get('mileage').invalid && addCarForm.get('mileage').touched"
+                formControlName="mileage"
+                type="number"
+                class="form-control"
+                id="inputMileage"
+              />
+              <div class="invalid-feedback">
+                <ng-container *ngIf="addCarForm.get('mileage').errors?.required">
+                  Podaj przebieg
+                </ng-container>
+                <ng-container *ngIf="addCarForm.get('mileage').errors?.min">
+                  Podaj prawidłową wartość przebiegu
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Used -->
+        <div class="form-row">
+          <div class="col-md-6">
+            <label>Status pojazdu:</label>
+            <div class="form-check">
+              <input
+                #used
+                [class.is-valid]="addCarForm.get('used').valid && addCarForm.get('used').touched && used.checked"
+                [class.is-invalid]="addCarForm.get('used').invalid && addCarForm.get('used').touched"
+                class="form-check-input"
+                type="radio"
+                formControlName="used"
+                id="radioUsed"
+                value="true"
+                checked
+              />
+              <label class="form-check-label" for="radioUsed">
+                Używany
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                #notUsed
+                [class.is-valid]="addCarForm.get('used').valid && addCarForm.get('used').touched && notUsed.checked"
+                [class.is-invalid]="addCarForm.get('used').invalid && addCarForm.get('used').touched"
+                class="form-check-input"
+                type="radio"
+                formControlName="used"
+                id="radioNew"
+                value="false"
+              />
+              <label class="form-check-label" for="radioNew">
+                Nieużywany
+              </label>
+              <div class="invalid-feedback">
+                Wybierz status pojazdu
+              </div>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="inputPrice">Cena:</label>
+              <input
+                [class.is-valid]="addCarForm.get('price').valid && addCarForm.get('price').touched"
+                [class.is-invalid]="addCarForm.get('price').invalid && addCarForm.get('price').touched"
+                formControlName="price"
+                type="number"
+                class="form-control"
+                id="inputPrice"
+              />
+              <div class="invalid-feedback">
+                <ng-container *ngIf="addCarForm.get('price').errors?.required">
+                  Podaj cenę
+                </ng-container>
+                <ng-container *ngIf="addCarForm.get('price').errors?.min">
+                  Podaj prawidłową wartość ceny
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="textDescription">Opis pojazdu:</label>
+              <textarea
+                [class.is-valid]="addCarForm.get('description').valid && addCarForm.get('description').touched"
+                [class.is-invalid]="addCarForm.get('description').invalid && addCarForm.get('description').touched"
+                formControlName="description"
+                class="form-control description"
+                rows="3"
+                id="textDescription"
+              ></textarea>
+              <div class="invalid-feedback">
+                <ng-container *ngIf="addCarForm.get('description').errors?.required">
+                  Podaj opis pojazdu
+                </ng-container>
+                <ng-container *ngIf="addCarForm.get('description').errors?.maxlength">
+                  Przekroczona maksymalna ilość znaków w opisie pojazdu
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="inputUrl">Wklej link do zdjęcia</label>
+              <input
+                #url
+                type="text"
+                formControlName="pictureURL"
+                class="form-control"
+                id="inputUrl"
+                (focusout)="onURLFocusOut(url)"
+              />
+              <div class="invalid-feedback">
+                <div
+                  *ngIf="addCarForm.get('pictures').invalid && url.value.length == 0; then thenBlock; else elseBlock"
+                ></div>
+                <ng-template #thenBlock>Dodaj przynajmniej jedno zdjęcie</ng-template>
+                <ng-template #elseBlock>Podany link jest niepoprawny</ng-template>
+              </div>
+              <ul class="list-group">
+                <li *ngFor="let p of addCarForm.get('pictures')['controls']" class="list-group-item list-url">
+                  {{ p.value }}
+                </li>
+              </ul>
+
+              <img
+                #URLValidator
+                [src]="url.value"
+                alt=""
+                (error)="invalidPictureURL(url)"
+                (load)="addPicture(url)"
+                style="display: none;"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- submit -->
+
+        <div class="d-flex justify-content-end">
+          <button type="submit" (click)="onURLFocusOut(url)" class="btn btn-success">Dodaj ogłoszenie</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

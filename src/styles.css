@@ -1,0 +1,52 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;1,200;1,300;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@font-face {
+  font-family: eurostyle;
+  src: url(assets/fonts/eurosteal.regular.ttf) format("opentype");
+}
+
+body {
+  /* background-color: rgb(221, 221, 221); */
+  background-color: rgb(240, 240, 240);
+  font-family: "Nunito", sans-serif;
+}
+
+.bald {
+  font-weight: 600;
+}
+
+.balder {
+  font-weight: 700;
+}
+.font-xlg {
+  font-size: 20px;
+}
+
+.font-lg {
+  font-size: 17px;
+}
+
+.font-md {
+  font-size: 14px;
+}
+
+.font-sm {
+  font-size: 12px;
+}
+
+.font-dark {
+  color: rgb(60, 60, 60);
+}
+.font-grey {
+  color: rgb(100, 100, 100);
+}
+.font-light {
+  color: rgb(140, 140, 140);
+}
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}

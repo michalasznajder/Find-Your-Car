@@ -1,0 +1,84 @@
+<div class="search-container">
+  <div class="form-container">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <!-- mark -->
+        <div class="form-group col-md-3">
+          <select
+            (change)="searchForm.get('model').setValue('')"
+            #selectedMark
+            formControlName="mark"
+            class="form-control"
+          >
+            <option value="" selected>Marka pojazdu...</option>
+            <option *ngFor="let mark of marks">{{ mark.name }}</option>
+          </select>
+        </div>
+
+        <!-- model -->
+        <div class="form-group col-md-3">
+          <select formControlName="model" class="form-control">
+            <option value="" selected>Model pojazdu...</option>
+            <ng-container *ngFor="let model of models">
+              <option *ngIf="selectedMark.value == model.mark.name">{{ model.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+
+        <!-- year from -->
+        <div class="form-group col-md-3">
+          <select #yearFrom formControlName="yearFrom" class="form-control">
+            <option value="" selected>Rok produkcji od...</option>
+            <ng-container *ngFor="let year of years">
+              <option *ngIf="year <= yearTo.value || yearTo.value == ''">{{ year }}</option>
+            </ng-container>
+          </select>
+        </div>
+
+        <!-- year to -->
+        <div class="form-group col-md-3">
+          <select #yearTo formControlName="yearTo" class="form-control">
+            <option value="" selected>Rok produkcji do...</option>
+            <ng-container *ngFor="let year of years">
+              <option *ngIf="year >= yearFrom.value || yearFrom.value == ''">{{ year }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!-- search -->
+        <div class="form-group col-md-6">
+          <input formControlName="search" type="text" class="form-control" placeholder="Szukaj..." />
+        </div>
+
+        <!-- price from -->
+        <div class="form-group col-md-3">
+          <select #priceFrom formControlName="priceFrom" class="form-control">
+            <option value="" selected>Ceny od...</option>
+            <ng-container *ngFor="let price of prices">
+              <option *ngIf="price <= priceTo.value || priceTo.value == ''" [value]="price">{{ price | price }}</option>
+            </ng-container>
+          </select>
+        </div>
+
+        <!-- price to -->
+        <div class="form-group col-md-3">
+          <select #priceTo formControlName="priceTo" class="form-control">
+            <option value="" selected>Ceny do...</option>
+            <ng-container *ngFor="let price of prices">
+              <option *ngIf="price >= priceFrom.value || priceFrom.value == ''" [value]="price">{{
+                price | price
+              }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+
+      <!-- submit -->
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">Pokaż ogłoszenia</button>
+      </div>
+    </form>
+  </div>
+</div>

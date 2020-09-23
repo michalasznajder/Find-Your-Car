@@ -1,0 +1,49 @@
+.top {
+  display: flex;
+  align-items: center;
+  height: 280px;
+  background-image: url("../../../assets/road1.1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  color: white;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.announcements-container {
+  width: 800px;
+  margin-top: 10px;
+  margin-bottom: 100px;
+}
+
+.titles {
+  padding-left: 100px;
+  color: rgb(243, 243, 243);
+  font-family: "Antic Slab", serif;
+}
+
+.form-container {
+  width: 100%;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.list-url {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description {
+  resize: none;
+}
+
+.custom-select {
+  overflow: scroll;
+}

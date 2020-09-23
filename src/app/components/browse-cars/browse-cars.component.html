@@ -1,0 +1,12 @@
+<div class="browse-cars-container">
+  <app-search (urlChange)="onFilterChange($event)"></app-search>
+  <div *ngIf="!cars" class="text-center">
+    <div class="loader-title">Ładuje oferty...</div>
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+  <div class="cars-container">
+    <app-car *ngFor="let car of cars" [car]="car"></app-car>
+  </div>
+</div>

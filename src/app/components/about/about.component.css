@@ -1,0 +1,24 @@
+.top {
+  display: flex;
+  align-items: center;
+  height: 280px;
+  background-image: url("../../../assets/road1.1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  color: white;
+}
+
+.titles {
+  padding-left: 100px;
+  color: rgb(243, 243, 243);
+  font-family: "Antic Slab", serif;
+}
+
+.bottom {
+  background-color: white;
+  border-radius: 5px;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 10px;
+}

@@ -1,0 +1,17 @@
+.form-container {
+  width: 800px;
+  padding: 15px;
+  background-color: white;
+  /* border-radius: 5px; */
+  border: 1px solid #ced4da;
+}
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  background-image: url("../../../assets/road1.1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
